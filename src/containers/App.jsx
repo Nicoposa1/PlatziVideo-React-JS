@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-parens */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Search from '../components/Search';
@@ -5,39 +8,35 @@ import Categories from '../components/Categories';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem'
 import Footer from '../components/Footer'
+import useInitialState from '../hooks/useInitialState'
 import '../assets/styles/App.scss';
 
-const App = () => {
-  const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
-  useEffect(() => {
-    fetch('http://localhost:3000/initalState')
-      .then(response => response.json())
-      .then(data => setVideos(data));
-  }, []);
+const API = 'http://localhost:3000/initalState/'
 
-  return (
+const App = () => {
+  const initialState = useInitialState(API)
+  return initialState.length === 0 ? <h1>Loading...</h1> : (
     <div className='App'>
       <Header />
       <Search />
-      {videos.mylist.length > 0 && (
+
+      {initialState.mylist.length > 0 && (
         <Categories title='Mi Lista'>
           <Carousel>
-            <CarouselItem />
+            {initialState.mylist.map(item => <CarouselItem key={item.id} {...item} />)}
           </Carousel>
         </Categories>
       )}
 
       <Categories title='Tendencias'>
         <Carousel>
-          {vide.trends.map(item =>
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <CarouselItem key={item.id} {...item} />)}
+          {initialState.trends.map(item => <CarouselItem key={item.id} {...item} />)}
         </Carousel>
       </Categories>
 
       <Categories title='Originales de PlatziVideo'>
         <Carousel>
-          <CarouselItem />
+          {initialState.originals.map(item => <CarouselItem key={item.id} {...item} />)}
         </Carousel>
       </Categories>
 
