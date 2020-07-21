@@ -1,0 +1,25 @@
+
+.error {
+  width: 100%;
+  min-height: calc(100vh - 200px);
+  background: linear-gradient(#21c08b, #ab88ff);
+  margin: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+}
+
+h1 {
+  font-family: "Muli", sans-serif;
+  color: white;
+  text-align: center;
+  animation-name: pulse;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  cursor: default; }
+
+p {
+  font-family: "Muli", sans-serif;
+  color: white;
+  cursor: default; }
